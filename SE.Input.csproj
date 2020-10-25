@@ -5,6 +5,10 @@
     <RootNamespace>SE</RootNamespace>
     <Platforms>AnyCPU</Platforms>
     <AssemblyName>SE.Input</AssemblyName>
+    <Version>0.0.1.0</Version>
+    <Description>Input library for MonoGame</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,15 +20,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641">
+      <NoWarn>NU1701;</NoWarn>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
     <Reference Include="SE.Utility">
       <HintPath>..\SE.Utility\bin\$(Configuration)\netstandard2.1\SE.Utility.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\_DEPENDENCIES\MonoGame\Artifacts\MonoGame.Framework\DesktopGL\Release\net452\MonoGame.Framework.dll</HintPath>
-      <SpecificVersion>false</SpecificVersion>
     </Reference>
   </ItemGroup>
 

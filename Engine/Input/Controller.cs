@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SE.Utility;
 using static SE.Core.InputManager;
 
 namespace SE.Input
@@ -239,7 +240,7 @@ namespace SE.Input
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just pressed, according to the provided filter.</returns>
-        public bool ButtonPressed(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public bool ButtonPressed(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
         {
             if (buttonInputs == null) {
                 buttonCache.Clear();
@@ -284,7 +285,7 @@ namespace SE.Input
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just released, according to the provided filter.</returns>
-        public bool ButtonReleased(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public bool ButtonReleased(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
         {
             if (buttonInputs == null) {
                 buttonCache.Clear();
@@ -329,7 +330,7 @@ namespace SE.Input
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are down, according to the provided filter.</returns>
-        public bool ButtonDown(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public bool ButtonDown(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
         {
             if (buttonInputs == null) {
                 buttonCache.Clear();
@@ -374,7 +375,7 @@ namespace SE.Input
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are up, according to the provided filter.</returns>
-        public bool ButtonUp(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public bool ButtonUp(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => !ButtonDown(filter, buttonInputs);
 
         /// <summary>

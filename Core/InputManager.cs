@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Buffers;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SE.Input;
+using SE.Utility;
 
 namespace SE.Core
 {
@@ -10,17 +13,17 @@ namespace SE.Core
     /// </summary>
     public static class InputManager
     {
-        internal static Keys[] OldKeys = new Keys[0];
-        internal static Keys[] NewKeys = new Keys[0];
+        internal static Keys[] OldKeys;
+        internal static Keys[] NewKeys;
 
         internal static GamePadCapabilities[] GamePadCapabilities = new GamePadCapabilities[4];
         internal static GamePadState[] GamePadStates = new GamePadState[4];
 
         private static Controller[] controllers = new Controller[4];
-        private static List<Controller> controllerAlloc = new List<Controller>();
+        private static QuickList<Controller> controllerAlloc = new QuickList<Controller>();
 
-        internal static List<string> buttonCache = new List<string>();
-        internal static List<char> oldPressedChars = new List<char>();
+        internal static QuickList<string> buttonCache = new QuickList<string>();
+        internal static QuickList<char> oldPressedChars = new QuickList<char>();
 
         internal static int oldScrollValue;
         internal static int scrollValue;
@@ -70,10 +73,10 @@ namespace SE.Core
         public static int MouseScrollValue { get; private set; }
 
         /// <summary>List of KeyCodes which were pressed this frame.</summary>
-        public static List<Keys> PressedKeys { get; } = new List<Keys>();
+        public static QuickList<Keys> PressedKeys { get; } = new QuickList<Keys>();
 
         /// <summary>List of characters which were pressed this frame.</summary>
-        public static List<char> PressedChars { get; } = new List<char>();
+        public static QuickList<char> PressedChars { get; } = new QuickList<char>();
 
         /// <summary>True if the cursor moved since last frame.</summary>
         public static bool MouseMoved => oldMouseState.Position != MouseState.Position;
@@ -125,7 +128,8 @@ namespace SE.Core
 
             for (int i = 0; i < GamePadCapabilities.Length; i++) {
                 GamePadStates[i] = GamePadCapabilities[i].IsConnected 
-                    ? GamePad.GetState(i) : default;
+                    ? GamePad.GetState(i) 
+                    : default;
             }
 
             // Clear pressed keys.
@@ -158,10 +162,10 @@ namespace SE.Core
             KeyboardState = Keyboard.GetState();
             MouseState = Mouse.GetState();
             PressedChars.AddRange(oldPressedChars);
+
+            // Check key state capacities and move the key states into arrays.
             OldKeys = oldKeyboardState.GetPressedKeys();
             NewKeys = KeyboardState.GetPressedKeys();
-
-            // Find the keys that were pressed during this frame.
             for (int i = 0; i < NewKeys.Length; i++) {
                 if (!OldKeys.Contains(NewKeys[i])) {
                     PressedKeys.Add(NewKeys[i]);
@@ -194,6 +198,29 @@ namespace SE.Core
             for (int i = 0; i < controllers.Length; i++) {
                 controllers[i].Update(deltaTime);
             }
+        }
+
+        private static void CheckKeysCapacities(int oldKeysCount, int newKeysCount)
+        {
+            if (OldKeys == null || OldKeys.Length < oldKeysCount) {
+                OldKeys = OldKeys == null
+                    ? new Keys[64]
+                    : new Keys[OldKeys.Length * 2];
+            }
+            if (NewKeys == null || NewKeys.Length < newKeysCount) {
+                NewKeys = NewKeys == null
+                    ? new Keys[64]
+                    : new Keys[NewKeys.Length * 2];
+            }
+        }
+
+        private static bool KeysSpanContains(ReadOnlySpan<Keys> span, Keys key)
+        {
+            for (int i = 0; i < span.Length; i++) {
+                if (span[i] == key)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -418,7 +445,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just pressed, according to the provided filter.</returns>
-        public static bool ButtonPressed(Players player, Filter filter = Filter.Any, List<string> buttonInputs = null) 
+        public static bool ButtonPressed(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
             => controllers[(int) player].ButtonPressed(filter, buttonInputs);
         /// <summary>
         /// Checks the pressed state of multiple buttons.
@@ -426,7 +453,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just pressed, according to the provided filter.</returns>
-        public static bool ButtonPressed(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public static bool ButtonPressed(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => controllers[0].ButtonPressed(filter, buttonInputs);
 
         /// <summary>
@@ -452,7 +479,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just released, according to the provided filter.</returns>
-        public static bool ButtonReleased(Players player, Filter filter = Filter.Any, List<string> buttonInputs = null) 
+        public static bool ButtonReleased(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
             => controllers[(int) player].ButtonReleased(filter, buttonInputs);
         /// <summary>
         /// Checks the released state of multiple buttons.
@@ -460,7 +487,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just released, according to the provided filter.</returns>
-        public static bool ButtonReleased(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public static bool ButtonReleased(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => controllers[0].ButtonReleased(filter, buttonInputs);
 
         /// <summary>
@@ -486,7 +513,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are down, according to the provided filter.</returns>
-        public static bool ButtonDown(Players player, Filter filter = Filter.Any, List<string> buttonInputs = null) 
+        public static bool ButtonDown(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
             => controllers[(int) player].ButtonDown(filter, buttonInputs);
         /// <summary>
         /// Checks the down state of multiple buttons.
@@ -494,7 +521,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are down, according to the provided filter.</returns>
-        public static bool ButtonDown(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public static bool ButtonDown(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => controllers[0].ButtonDown(filter, buttonInputs);
 
         /// <summary>
@@ -520,7 +547,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are up, according to the provided filter.</returns>
-        public static bool ButtonUp(Players player, Filter filter = Filter.Any, List<string> buttonInputs = null) 
+        public static bool ButtonUp(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
             => !ButtonDown(player, filter, buttonInputs);
         /// <summary>
         /// Checks the up state of multiple buttons.
@@ -528,7 +555,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are up, according to the provided filter.</returns>
-        public static bool ButtonUp(Filter filter = Filter.Any, List<string> buttonInputs = null)
+        public static bool ButtonUp(Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => !ButtonDown(filter, buttonInputs);
 
         /// <summary>

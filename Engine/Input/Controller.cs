@@ -252,7 +252,7 @@ namespace SE.Input
             switch (filter) {
                 case Filter.Any:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key))
                             continue;
                         if (buttons[key].Pressed)
@@ -261,7 +261,7 @@ namespace SE.Input
                     return false;
                 case Filter.All:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key) || !buttons[key].Pressed)
                             return false;
                     }
@@ -297,7 +297,7 @@ namespace SE.Input
             switch (filter) {
                 case Filter.Any:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key))
                             continue;
                         if (buttons[key].Released)
@@ -306,7 +306,7 @@ namespace SE.Input
                     return false;
                 case Filter.All:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key) || !buttons[key].Released)
                             return false;
                     }
@@ -342,7 +342,7 @@ namespace SE.Input
             switch (filter) {
                 case Filter.Any:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key))
                             continue;
                         if (buttons[key].Down)
@@ -351,7 +351,7 @@ namespace SE.Input
                     return false;
                 case Filter.All:
                     for (int i = 0; i < buttonInputs.Count; i++) {
-                        string key = buttonInputs[i];
+                        string key = buttonInputs.Array[i];
                         if (!buttons.ContainsKey(key) || !buttons[key].Down)
                             return false;
                     }

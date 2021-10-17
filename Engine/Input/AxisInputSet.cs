@@ -19,11 +19,11 @@ namespace SE.Input
 
         internal void Update(float deltaTime)
         {
-            if(Updated)
+            if (Updated)
                 return;
             for (int i = 0; i < Inputs.Count; i++)
                 Inputs[i].Update(deltaTime);
-            
+
             Updated = true;
         }
 
@@ -37,7 +37,7 @@ namespace SE.Input
                 for (int i = 0; i < Inputs.Count; i++)
                     if (Math.Abs(Inputs[i].State) > 0.001f)
                         return Inputs[i].State;
-                
+
                 return 0f;
             }
         }
@@ -46,7 +46,7 @@ namespace SE.Input
         {
             if (inputs == null)
                 throw new ArgumentNullException(nameof(inputs));
-            if(inputs.Count < 1)
+            if (inputs.Count < 1)
                 throw new InvalidOperationException("Tried to initialize a AxisInputSet with an empty list of inputs.");
 
             Inputs = inputs;

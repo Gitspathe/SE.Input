@@ -19,11 +19,11 @@ namespace SE.Input
 
         internal void Update(float deltaTime)
         {
-            if(Updated)
+            if (Updated)
                 return;
             for (int i = 0; i < Inputs.Count; i++)
                 Inputs[i].Update(deltaTime);
-            
+
             Updated = true;
         }
 
@@ -37,17 +37,17 @@ namespace SE.Input
                 for (int i = 0; i < Inputs.Count; i++)
                     if (Inputs[i].Pressed)
                         return true;
-                    
+
                 return false;
             }
         }
 
-        public bool Released { 
+        public bool Released {
             get {
                 for (int i = 0; i < Inputs.Count; i++)
                     if (Inputs[i].Released)
                         return true;
-                
+
                 return false;
             }
         }
@@ -79,7 +79,7 @@ namespace SE.Input
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
 
-            Inputs = new List<ButtonInput> {input};
+            Inputs = new List<ButtonInput> { input };
         }
 
         public ButtonInputSet DeepCopy()

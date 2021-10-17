@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using SE.Input.AxisControls;
+using System;
 
 namespace SE.Input
 {
@@ -12,7 +12,7 @@ namespace SE.Input
         internal Players PlayerIndex {
             set {
                 Axis.PlayerIndex = value;
-                if(Modifier != null)
+                if (Modifier != null)
                     Modifier.PlayerIndex = value;
             }
         }
@@ -53,25 +53,25 @@ namespace SE.Input
                 Modifier = modifier;
         }
 
-        public static AxisInput FromThumbStick(ThumbSticks thumbStick, ThumbSticksAxis thumbSticksAxis, float deadzone = 0.05f, bool reverse = false) 
+        public static AxisInput FromThumbStick(ThumbSticks thumbStick, ThumbSticksAxis thumbSticksAxis, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new GamepadAxisControl(thumbStick, thumbSticksAxis, deadzone, reverse));
 
-        public static AxisInput FromThumbStick(ThumbSticks thumbStick, ThumbSticksAxis thumbSticksAxis, ButtonInputSet modifier, float deadzone = 0.05f, bool reverse = false) 
+        public static AxisInput FromThumbStick(ThumbSticks thumbStick, ThumbSticksAxis thumbSticksAxis, ButtonInputSet modifier, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new GamepadAxisControl(thumbStick, thumbSticksAxis, deadzone, reverse), modifier);
 
         public static AxisInput FromThumbStick(ThumbSticks thumbStick, ThumbSticksAxis thumbSticksAxis, ButtonInput modifier, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new GamepadAxisControl(thumbStick, thumbSticksAxis, deadzone, reverse), new ButtonInputSet(modifier));
 
-        public static AxisInput FromKeyboard(Keys positiveKey, Keys negativeKey, float? sensitivity = null, float? gravity = null, float deadzone = 0.05f, bool reverse = false) 
+        public static AxisInput FromKeyboard(Keys positiveKey, Keys negativeKey, float? sensitivity = null, float? gravity = null, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new KeyAxisControl(positiveKey, negativeKey, sensitivity, gravity, deadzone, reverse));
 
-        public static AxisInput FromKeyboard(Keys positiveKey, Keys negativeKey, ButtonInputSet modifier, float? sensitivity = null, float? gravity = null, float deadzone = 0.05f, bool reverse = false) 
+        public static AxisInput FromKeyboard(Keys positiveKey, Keys negativeKey, ButtonInputSet modifier, float? sensitivity = null, float? gravity = null, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new KeyAxisControl(positiveKey, negativeKey, sensitivity, gravity, deadzone, reverse), modifier);
 
         public static AxisInput FromKeyboard(Keys positiveKey, Keys negativeKey, ButtonInput modifier, float? sensitivity = null, float? gravity = null, float deadzone = 0.05f, bool reverse = false)
             => new AxisInput(new KeyAxisControl(positiveKey, negativeKey, sensitivity, gravity, deadzone, reverse), new ButtonInputSet(modifier));
 
-        public AxisInput DeepCopy() 
+        public AxisInput DeepCopy()
             => new AxisInput(Axis.DeepCopy());
     }
 }

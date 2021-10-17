@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SE.Utility;
+using System;
 using System.Collections.Generic;
-using SE.Utility;
 using static SE.Core.InputManager;
 
 namespace SE.Input
@@ -73,7 +73,7 @@ namespace SE.Input
                 this.axis.Remove(inputName);
             for (int i = 0; i < axis.Length; i++)
                 set = AddAxisInput(inputName, axis[i]);
-            if (set == null) 
+            if (set == null)
                 return null;
 
             set.Key = inputName;

@@ -10,7 +10,7 @@
         public abstract float Deadzone { get; set; }
         /// <summary>Whether or not to invert the axis.</summary>
         public abstract bool Reverse { get; set; }
-        
+
         /// <summary>
         /// Updates the axis.
         /// </summary>

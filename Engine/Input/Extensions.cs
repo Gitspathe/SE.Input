@@ -18,7 +18,7 @@ namespace SE.Input
         // .Net standard 2.0 doesn't have Math.Clamp apparently.
         public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
         {
-            if (val.CompareTo(min) < 0) 
+            if (val.CompareTo(min) < 0)
                 return min;
 
             return val.CompareTo(max) > 0 ? max : val;

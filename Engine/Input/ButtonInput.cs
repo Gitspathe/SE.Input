@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using SE.Input.ButtonControls;
+using System;
 
 namespace SE.Input
 {
@@ -72,19 +72,19 @@ namespace SE.Input
                 Modifier = modifier;
         }
 
-        public static ButtonInput FromKeyboard(Keys key) 
+        public static ButtonInput FromKeyboard(Keys key)
             => new ButtonInput(new KeyButtonControl(key), null);
 
-        public static ButtonInput FromKeyboard(Keys key, ButtonInputSet modifier) 
+        public static ButtonInput FromKeyboard(Keys key, ButtonInputSet modifier)
             => new ButtonInput(new KeyButtonControl(key), modifier);
 
         public static ButtonInput FromKeyboard(Keys key, ButtonInput modifier)
             => new ButtonInput(new KeyButtonControl(key), new ButtonInputSet(modifier));
 
-        public static ButtonInput FromGamepad(GamepadButtons button) 
+        public static ButtonInput FromGamepad(GamepadButtons button)
             => new ButtonInput(new GamepadButtonControl(button), null);
 
-        public static ButtonInput FromGamepad(GamepadButtons button, ButtonInputSet modifier) 
+        public static ButtonInput FromGamepad(GamepadButtons button, ButtonInputSet modifier)
             => new ButtonInput(new GamepadButtonControl(button), modifier);
 
         public static ButtonInput FromGamepad(GamepadButtons button, ButtonInput modifier)

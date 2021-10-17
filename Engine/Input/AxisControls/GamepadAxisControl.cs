@@ -1,5 +1,5 @@
-﻿using System;
-using SE.Core;
+﻿using SE.Core;
+using System;
 
 namespace SE.Input.AxisControls
 {
@@ -36,12 +36,12 @@ namespace SE.Input.AxisControls
             switch (ThumbStick) {
                 case ThumbSticks.Left:
                     val = ThumbStickAxis == ThumbSticksAxis.X
-                        ? InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Left.X 
+                        ? InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Left.X
                         : InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Left.Y;
                     break;
                 case ThumbSticks.Right:
                     val = ThumbStickAxis == ThumbSticksAxis.X
-                        ? InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Right.X 
+                        ? InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Right.X
                         : InputManager.GamePadStates[(int)PlayerIndex].ThumbSticks.Right.Y;
                     break;
                 default:
@@ -62,7 +62,7 @@ namespace SE.Input.AxisControls
             State = Extensions.Clamp(val, -1, 1);
         }
 
-        public override AxisControl DeepCopy() 
+        public override AxisControl DeepCopy()
             => new GamepadAxisControl(ThumbStick, ThumbStickAxis, Deadzone, Reverse);
     }
 }

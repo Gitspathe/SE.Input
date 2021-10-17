@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using SE.Core;
+using System;
 
 namespace SE.Input.AxisControls
 {
@@ -78,7 +78,7 @@ namespace SE.Input.AxisControls
             State = Extensions.Clamp(State + val * deltaTime, -1, 1);
         }
 
-        public override AxisControl DeepCopy() 
+        public override AxisControl DeepCopy()
             => new KeyAxisControl(KeyPositive, KeyNegative, Sensitivity, Gravity, Deadzone, Reverse);
     }
 

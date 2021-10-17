@@ -12,7 +12,7 @@ namespace SE.Input.ButtonControls
         public GamepadButtons GamepadButton { get; set; }
 
         ///<inheritdoc/>
-        public override State CurrentState { get; protected set;  }
+        public override State CurrentState { get; protected set; }
         ///<inheritdoc/>
         public override State PreviousState { get; protected set; }
 
@@ -48,12 +48,12 @@ namespace SE.Input.ButtonControls
                     CurrentState = controlState.Triggers.Right > _TRIGGER_THRESHOLD ? State.Down : State.Up;
                     break;
                 default:
-                    CurrentState = controlState.IsButtonDown((Buttons) GamepadButton) ? State.Down : State.Up;
+                    CurrentState = controlState.IsButtonDown((Buttons)GamepadButton) ? State.Down : State.Up;
                     break;
             }
         }
 
-        public override ButtonControl DeepCopy() 
+        public override ButtonControl DeepCopy()
             => new GamepadButtonControl(GamepadButton);
     }
 }

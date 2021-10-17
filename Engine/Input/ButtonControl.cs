@@ -25,7 +25,7 @@ namespace SE.Input
         /// </summary>
         /// <param name="deltaTime">Time in seconds which has passed since last frame.</param>
         public abstract void Update(float deltaTime);
-        
+
         /// <summary>
         /// Creates a deep copy of the ButtonControl.
         /// </summary>

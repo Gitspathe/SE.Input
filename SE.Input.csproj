@@ -3,20 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>SE</RootNamespace>
-    <Platforms>AnyCPU</Platforms>
+    <Platforms>x64</Platforms>
     <AssemblyName>SE.Input</AssemblyName>
     <Version>0.0.1.0</Version>
     <Description>Input library for MonoGame</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,9 +17,10 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <Reference Include="SE.Utility">
-      <HintPath>..\SE.Utility\bin\$(Configuration)\netstandard2.1\SE.Utility.dll</HintPath>
-    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SE.Utility\SE.Utility.csproj" />
   </ItemGroup>
 
 </Project>

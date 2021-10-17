@@ -1,10 +1,8 @@
-﻿using System;
-using System.Buffers;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SE.Input;
 using SE.Utility;
+using System;
 
 namespace SE.Core
 {
@@ -127,8 +125,8 @@ namespace SE.Core
             }
 
             for (int i = 0; i < GamePadCapabilities.Length; i++) {
-                GamePadStates[i] = GamePadCapabilities[i].IsConnected 
-                    ? GamePad.GetState(i) 
+                GamePadStates[i] = GamePadCapabilities[i].IsConnected
+                    ? GamePad.GetState(i)
                     : default;
             }
 
@@ -146,8 +144,8 @@ namespace SE.Core
             oldPressedChars.Clear();
         }
 
-        public static Controller GetController(Players playerIndex) 
-            => controllers[(int) playerIndex];
+        public static Controller GetController(Players playerIndex)
+            => controllers[(int)playerIndex];
         public static Controller GetController(int playerIndex)
             => controllers[playerIndex];
 
@@ -236,7 +234,7 @@ namespace SE.Core
             if (players == null)
                 players = All;
             for (int i = 0; i < players.Length; i++)
-                controllers[(int) players[i]].AddAxisInput(inputName, theAxis.DeepCopy(), replace);
+                controllers[(int)players[i]].AddAxisInput(inputName, theAxis.DeepCopy(), replace);
         }
         /// <summary>
         /// Registers an axis input to the input manager.
@@ -295,7 +293,7 @@ namespace SE.Core
         /// <param name="players">Array of players to add the axis input to.</param>
         /// <param name="axis">One or more axis to be added. All axis inputs will be assigned to the same ID.</param>
         /// <returns>An AxisInputSet created from the provided AxisInputs.</returns>
-        public static void AddAxisInputs(string inputName, Players[] players, params AxisInput[] axis) 
+        public static void AddAxisInputs(string inputName, Players[] players, params AxisInput[] axis)
             => AddAxisInputs(inputName, false, players, axis);
         /// <summary>
         /// Registers multiple axis inputs to the input system, under a shared ID.
@@ -336,10 +334,10 @@ namespace SE.Core
         /// <returns>A ButtonInputSet created from the provided ButtonInput.</returns>
         public static void AddButtonInput(string inputName, ButtonInput button, Players[] players, bool replace)
         {
-            if(players == null)
+            if (players == null)
                 players = All;
             for (int i = 0; i < players.Length; i++)
-                controllers[(int) players[i]].AddButtonInput(inputName, button.DeepCopy(), replace);
+                controllers[(int)players[i]].AddButtonInput(inputName, button.DeepCopy(), replace);
         }
 
         /// <summary>
@@ -371,7 +369,7 @@ namespace SE.Core
         /// <returns>A ButtonInputSet created from the provided ButtonInputs.</returns>
         public static void AddButtonInputs(string inputName, Players[] players, bool replace, params ButtonInput[] buttons)
         {
-            if(players == null)
+            if (players == null)
                 players = All;
 
             for (int i = 0; i < players.Length; i++) {
@@ -380,7 +378,7 @@ namespace SE.Core
                     copy[y] = buttons[y].DeepCopy();
                 }
 
-                controllers[(int) players[i]].AddButtonInput(inputName, replace, copy);
+                controllers[(int)players[i]].AddButtonInput(inputName, replace, copy);
             }
         }
         /// <summary>
@@ -410,7 +408,7 @@ namespace SE.Core
         /// <returns>True if the ButtonInputSet was found and removed.</returns>
         public static bool RemoveButtonInput(string inputName, Players[] players = null)
         {
-            if(players == null)
+            if (players == null)
                 players = All;
 
             bool found = false;
@@ -428,7 +426,7 @@ namespace SE.Core
         /// <param name="player">Which player to check.</param>
         /// <param name="key">ID of the ButtonInputSet to check.</param>
         /// <returns>True if the button was pressed this frame.</returns>
-        public static bool ButtonPressed(Players player, string key) 
+        public static bool ButtonPressed(Players player, string key)
             => controllers[(int)player].ButtonPressed(key);
         /// <summary>
         /// Check if a button was just pressed by player one.
@@ -445,8 +443,8 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just pressed, according to the provided filter.</returns>
-        public static bool ButtonPressed(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
-            => controllers[(int) player].ButtonPressed(filter, buttonInputs);
+        public static bool ButtonPressed(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
+            => controllers[(int)player].ButtonPressed(filter, buttonInputs);
         /// <summary>
         /// Checks the pressed state of multiple buttons.
         /// </summary>
@@ -462,7 +460,7 @@ namespace SE.Core
         /// <param name="player">Which player to check.</param>
         /// <param name="key">ID of the ButtonInputSet to check.</param>
         /// <returns>True if the button was released this frame.</returns>
-        public static bool ButtonReleased(Players player, string key) 
+        public static bool ButtonReleased(Players player, string key)
             => controllers[(int)player].ButtonReleased(key);
         /// <summary>
         /// Check if a button was just released.
@@ -479,8 +477,8 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided were just released, according to the provided filter.</returns>
-        public static bool ButtonReleased(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
-            => controllers[(int) player].ButtonReleased(filter, buttonInputs);
+        public static bool ButtonReleased(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
+            => controllers[(int)player].ButtonReleased(filter, buttonInputs);
         /// <summary>
         /// Checks the released state of multiple buttons.
         /// </summary>
@@ -496,7 +494,7 @@ namespace SE.Core
         /// <param name="player">Which player to check.</param>
         /// <param name="key">ID of the ButtonInputSet to check.</param>
         /// <returns>True if the button is down frame.</returns>
-        public static bool ButtonDown(Players player, string key) 
+        public static bool ButtonDown(Players player, string key)
             => controllers[(int)player].ButtonDown(key);
         /// <summary>
         /// Check if a button is down.
@@ -513,8 +511,8 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are down, according to the provided filter.</returns>
-        public static bool ButtonDown(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
-            => controllers[(int) player].ButtonDown(filter, buttonInputs);
+        public static bool ButtonDown(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
+            => controllers[(int)player].ButtonDown(filter, buttonInputs);
         /// <summary>
         /// Checks the down state of multiple buttons.
         /// </summary>
@@ -530,7 +528,7 @@ namespace SE.Core
         /// <param name="player">Which player to check.</param>
         /// <param name="key">ID of the ButtonInputSet to check.</param>
         /// <returns>True if the button is up this frame.</returns>
-        public static bool ButtonUp(Players player, string key) 
+        public static bool ButtonUp(Players player, string key)
             => !ButtonDown(player, key);
         /// <summary>
         /// Check if a button is up.
@@ -547,7 +545,7 @@ namespace SE.Core
         /// <param name="filter">Filter used to determine the return behaviour.</param>
         /// <param name="buttonInputs">IDs of buttons to check.</param>
         /// <returns>True if the inputs provided are up, according to the provided filter.</returns>
-        public static bool ButtonUp(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null) 
+        public static bool ButtonUp(Players player, Filter filter = Filter.Any, QuickList<string> buttonInputs = null)
             => !ButtonDown(player, filter, buttonInputs);
         /// <summary>
         /// Checks the up state of multiple buttons.
@@ -564,7 +562,7 @@ namespace SE.Core
         /// <param name="player">Which player to check.</param>
         /// <param name="key">ID of the axis to check.</param>
         /// <returns>Normalized float, from 0 to 1, representing the axis state.</returns>
-        public static float AxisState(Players player, string key) 
+        public static float AxisState(Players player, string key)
             => controllers[(int)player].AxisState(key);
         /// <summary>
         /// Checks the state of an axis input.
@@ -579,7 +577,7 @@ namespace SE.Core
         /// </summary>
         /// <param name="key">Key to check.</param>
         /// <returns>True if the key was pressed.</returns>
-        public static bool KeyCodePressed(Keys key) 
+        public static bool KeyCodePressed(Keys key)
             => PressedKeys.Contains(key);
 
         /// <summary>
@@ -587,7 +585,7 @@ namespace SE.Core
         /// </summary>
         /// <param name="key">Key to check.</param>
         /// <returns>True if the key was released.</returns>
-        public static bool KeyCodeReleased(Keys key) 
+        public static bool KeyCodeReleased(Keys key)
             => OldKeys.Contains(key) && !NewKeys.Contains(key);
 
         /// <summary>
@@ -595,7 +593,7 @@ namespace SE.Core
         /// </summary>
         /// <param name="key">Key to check.</param>
         /// <returns>True if the key is down.</returns>
-        public static bool KeyCodeDown(Keys key) 
+        public static bool KeyCodeDown(Keys key)
             => NewKeys.Contains(key);
 
         /// <summary>
@@ -603,7 +601,7 @@ namespace SE.Core
         /// </summary>
         /// <param name="key">Key to check.</param>
         /// <returns>True if the key is up.</returns>
-        public static bool KeyCodeUp(Keys key) 
+        public static bool KeyCodeUp(Keys key)
             => !NewKeys.Contains(key);
 
         internal static void TextInput(object sender, TextInputEventArgs e)

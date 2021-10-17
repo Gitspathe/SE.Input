@@ -33,7 +33,7 @@ namespace SE.Input.ButtonControls
             CurrentState = InputManager.NewKeys.Contains(KeyboardKey) ? State.Down : State.Up;
         }
 
-        public override ButtonControl DeepCopy() 
+        public override ButtonControl DeepCopy()
             => new KeyButtonControl(KeyboardKey);
     }
 }

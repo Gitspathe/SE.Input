@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>SE</RootNamespace>
-    <Platforms>x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <AssemblyName>SE.Input</AssemblyName>
     <Version>0.0.1.0</Version>
     <Description>Input library for MonoGame</Description>

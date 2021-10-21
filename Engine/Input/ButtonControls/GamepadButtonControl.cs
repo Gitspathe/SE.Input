@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SE.Core;
 
 namespace SE.Input.ButtonControls

@@ -1,4 +1,4 @@
-﻿using SE.Input.ButtonControls;
+using SE.Input.ButtonControls;
 
 namespace SE.Input
 {

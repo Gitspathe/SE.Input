@@ -1,4 +1,4 @@
-﻿namespace SE.Input.ButtonControls
+namespace SE.Input.ButtonControls
 {
     public enum State
     {

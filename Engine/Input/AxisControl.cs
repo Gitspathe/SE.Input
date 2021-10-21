@@ -1,4 +1,4 @@
-﻿namespace SE.Input
+namespace SE.Input
 {
     public abstract class AxisControl
     {

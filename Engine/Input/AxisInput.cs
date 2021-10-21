@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input;
 using SE.Input.AxisControls;
 using System;
 
